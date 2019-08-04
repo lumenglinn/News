@@ -1,0 +1,41 @@
+
+.banner-swiper {
+    width: 690px;
+    height: 316px;
+    margin: 10px auto 0;
+    .banner-item-img {
+        width:100%;
+        height:100%;
+    }
+    .swiper {
+        width: 100%;
+        height: 100%;
+    }
+}
+.nav-list {
+    padding: 0 20px 8px;
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+    flex-wrap: wrap;
+    text-align: center;
+    .nav-item {
+        width: 120px;
+        margin-bottom: 8px;
+    }
+    .nav-img {
+        width: 120px;
+        height: 110px;
+    }
+}
+.index-page {
+    font-size: 24px;
+    color: #333;
+    .at-search-bar {
+        position: static;
+    }
+    .adv-img {
+        width: 100%;
+        height: 240px;
+    }
+}
