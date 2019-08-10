@@ -1,5 +1,9 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
+import Banner from './banner'
+import ProductInfo from './productInfo'
+import Introduce from './introduce'
+import Footer from './footer'
 import './index.scss'
 
 export default class Detail extends Component {
@@ -15,20 +19,23 @@ export default class Detail extends Component {
     navigationBarTitleText: '首页'
   }
 
-  componentWillMount () { }
+  componentWillMount() { }
 
-  componentDidMount () { }
+  componentDidMount() { }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () { }
+  componentDidShow() { }
 
-  componentDidHide () { }
+  componentDidHide() { }
 
-  render () {
+  render() {
     return (
-      <View className='index'>
-        <Text>Detail!</Text>
+      <View className='detail-page'>
+        <Banner />
+        <ProductInfo />
+        <Introduce />
+        <Footer />
       </View>
     )
   }

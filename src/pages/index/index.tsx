@@ -3,6 +3,7 @@ import { View, Image } from '@tarojs/components'
 import { AtSearchBar } from 'taro-ui'
 import Banner from './banner'
 import NavList from './navList'
+import Recommend from './recommend'
 import './index.scss'
 
 export default class Index extends Component {
@@ -68,6 +69,7 @@ export default class Index extends Component {
               src="https://yanxuan.nosdn.127.net/62d709816f0b516da52254ab08deaadf.gif"
             />
         </View>
+        <Recommend/>
       </View>
     )
   }

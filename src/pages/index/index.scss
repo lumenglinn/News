@@ -2,7 +2,7 @@
 .banner-swiper {
     width: 690px;
     height: 316px;
-    margin: 10px auto 0;
+    margin: 10px auto 10px;
     .banner-item-img {
         width:100%;
         height:100%;
@@ -37,5 +37,29 @@
     .adv-img {
         width: 100%;
         height: 240px;
+    }
+}
+.recommend{
+    padding: 0 30px;
+    .recommend-title {
+        font-size: 32px;
+        line-height: 96px;
+
+    }
+    .recommend-list {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .item {
+        width: 340px;
+        padding-bottom: 30px;
+        .price {
+            color: #902024;
+        }
+    }
+    .item-img {
+        width: 100%;
+        height: 340px;
     }
 }

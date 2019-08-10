@@ -19,6 +19,7 @@ export default function Banner() {
         circular
         autoplay
         indicatorDots
+        className="swiper"
         indicatorActiveColor='rgb(178, 42, 49)'>
         <SwiperItem>
           <Image
