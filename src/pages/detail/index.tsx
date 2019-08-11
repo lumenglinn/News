@@ -1,4 +1,5 @@
 import Taro, { Component, Config } from '@tarojs/taro'
+import { connect } from '@tarojs/redux'
 import { View } from '@tarojs/components'
 import Banner from './banner'
 import ProductInfo from './productInfo'
@@ -6,22 +7,20 @@ import Introduce from './introduce'
 import Footer from './footer'
 import './index.scss'
 
+@connect(({ detail }) => ({
+  ...detail,
+}))
 export default class Detail extends Component {
-
-  /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
   config: Config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '产品详情'
   }
 
   componentWillMount() { }
 
-  componentDidMount() { }
+  componentDidMount() { 
+    const { dispatch } = this.props;
+    dispatch({type: 'detail/getProductDetail'});
+  }
 
   componentWillUnmount() { }
 

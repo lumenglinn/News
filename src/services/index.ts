@@ -1,16 +1,11 @@
-// import request from '../utils/request';
-// import config from '../utils/config';
-
-// let {apiPrefix} = config;
+import Taro from '@tarojs/taro'
 
 
-// export async function authLogin(params) {
-//   return request(`${apiPrefix}/auth/authLogin`, {
-//     method: 'POST',
-//     body: {
-//       ...params
-//     }
-//   });
-// }
+export async function getList(url) {
+  return Taro.request({
+      url: 'http://120.79.22.119:8091/api/item/list'
+  });
+}
+
 
 

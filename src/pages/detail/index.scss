@@ -42,7 +42,6 @@
     line-height: 100px;
     text-align: center;
     background: #faf9fa;
-    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     .nav-icon-img {
         width: 46px;
@@ -53,6 +52,7 @@
     .nav-icon {
         width: 96px;
         height: 100%;
+        border-top: 1px solid #ccc;
         border-left: 1px solid #ccc;
     }
     // .nav-icon+.nav-icon {
@@ -67,6 +67,7 @@
     .nav-cart {
         width: 230px;
         height: 100%;
+        border-top: 1px solid #ccc;
         border-left: 1px solid #ccc;
     }
 }

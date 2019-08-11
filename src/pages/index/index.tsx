@@ -1,4 +1,5 @@
 import Taro, { Component, Config } from '@tarojs/taro'
+import { connect } from '@tarojs/redux'
 import { View, Image } from '@tarojs/components'
 import { AtSearchBar } from 'taro-ui'
 import Banner from './banner'
@@ -6,6 +7,9 @@ import NavList from './navList'
 import Recommend from './recommend'
 import './index.scss'
 
+@connect(({ index }) => ({
+  ...index,
+}))
 export default class Index extends Component {
 
   state = {
@@ -25,7 +29,10 @@ export default class Index extends Component {
 
   componentWillMount() { }
 
-  componentDidMount() { }
+  componentDidMount() { 
+    const { dispatch } = this.props;
+    dispatch({type: 'index/getList'});
+  }
 
   componentWillUnmount() { }
 

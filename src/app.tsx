@@ -1,7 +1,11 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import Index from './pages/index'
+import "@tarojs/async-await";
+import dva from './utils/dva';
+import { Provider } from "@tarojs/redux";
 import './app.scss'
 import './assets/taro-ui.css'
+import models from './models'
 // import 'taro-ui/dist/style/index.scss'
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -9,6 +13,13 @@ import './assets/taro-ui.css'
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
 //   require('nerv-devtools')
 // }
+
+const dvaApp = dva.createApp({
+  initialState:{},
+  models:  models,
+})
+
+const store = dvaApp.getStore();
 
 class App extends Component {
 
@@ -21,12 +32,12 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      
       'pages/detail/index',
       'pages/index/index',
       'pages/classify/index',
       'pages/cart/index',
       'pages/mine/index'
-      
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -75,7 +86,9 @@ class App extends Component {
   // 请勿修改此函数
   render () {
     return (
-      <Index />
+      <Provider store={store}>
+        <Index />
+      </Provider>
     )
   }
 }
