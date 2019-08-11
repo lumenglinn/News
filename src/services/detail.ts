@@ -1,9 +1,9 @@
 import Taro from '@tarojs/taro'
 
 
-export async function getProductDetail(url) {
+export async function getProductDetail(param) {
   return Taro.request({
-      url: 'http://120.79.22.119:8091/api/item/queryById?id=54ebf788999588f191ad58bb4cebc605'
+      url: `http://120.79.22.119:8091/api/item/queryById?id=${param.id}`
   });
 }
 

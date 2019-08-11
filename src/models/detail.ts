@@ -1,4 +1,3 @@
-// import {routerRedux} from 'dva/router';
 import { getProductDetail } from '../services/detail';
 
 export default {
@@ -11,18 +10,19 @@ export default {
   effects: {
     *getProductDetail({payload}, {call, put}) {
       const res = yield call(getProductDetail, payload);
-      console.log(res, 9222)
-      if (res.success === true) {
+      if (res.data.success === true) {
         yield put({
-            type: 'updateData',
-            payload: res.result
-          });
+          type: 'updateData',
+          payload: {
+            proDetail: res.data.result
+          }
+        });
       }
     }
   },
 
   reducers: {
-    updateProDetail(state, {payload}) {
+    updateData(state, {payload}) {
       return {
         ...state,
         ...payload

@@ -1,6 +1,6 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
-import { View, Image } from '@tarojs/components'
+import { View, Image, ScrollView } from '@tarojs/components'
 import { AtSearchBar } from 'taro-ui'
 import Banner from './banner'
 import NavList from './navList'
@@ -13,7 +13,8 @@ import './index.scss'
 export default class Index extends Component {
 
   state = {
-    searchValue: ''
+    searchValue: '',
+    pageNo: 1
   }
 
   /**
@@ -29,9 +30,8 @@ export default class Index extends Component {
 
   componentWillMount() { }
 
-  componentDidMount() { 
-    const { dispatch } = this.props;
-    dispatch({type: 'index/getList'});
+  componentDidMount() {
+    this.getList(1);
   }
 
   componentWillUnmount() { }
@@ -46,6 +46,24 @@ export default class Index extends Component {
     })
   }
 
+  getList() {
+    const { dispatch, list, records } = this.props;
+    let { pageNo } = this.state;
+    // 没有更多数据
+    if (records.length >= list.total) {
+      return;
+    }
+    dispatch({
+      type: 'index/getList',
+      payload: {
+        pageNo
+      }
+    });
+    this.setState({
+      pageNo: pageNo + 1
+    })
+  }
+
   toPage(url) {
     Taro.redirectTo({
       url
@@ -54,29 +72,40 @@ export default class Index extends Component {
 
   render() {
     const { searchValue } = this.state;
+    const { records } = this.props;
+    // const { records } = list;
     return (
       <View className='index-page'>
-        <AtSearchBar
-          className='home-banner'
-          value={searchValue}
-          onChange={this.onChange.bind(this)}
-        />
-        <Banner />
-        <NavList />
+
         {/* <View className='at-row'>
           <View className='at-col'>网易自营品牌</View>
           <View className='at-col'>48小时快速退款</View>
           <View className='at-col'>30天无忧退款</View>
         </View> */}
 
-      
-        <View onClick={this.toPage.bind(this, '/pages/detail/index')}>
-          <Image
+        <ScrollView
+          scrollY
+          scrollWithAnimation
+          lowerThreshold={50}
+          style={`height: 667px;`}
+          onScrollToLower={this.getList}
+        >
+          <AtSearchBar
+            className='home-banner'
+            value={searchValue}
+            onChange={this.onChange.bind(this)}
+          />
+          <Banner />
+          <NavList />
+          <View onClick={this.toPage.bind(this, '/pages/detail/index')}>
+            <Image
               className='adv-img'
               src="https://yanxuan.nosdn.127.net/62d709816f0b516da52254ab08deaadf.gif"
             />
-        </View>
-        <Recommend/>
+          </View>
+          <Recommend data={records} />
+        </ScrollView>
+
       </View>
     )
   }

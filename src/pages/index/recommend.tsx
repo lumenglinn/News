@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-import defaultAvatar from '@assets/default-avatar.png'
+// import defaultAvatar from '@assets/default-avatar.png'
 import './index.scss'
 
 export default class Recommend extends Component {
@@ -10,52 +10,32 @@ export default class Recommend extends Component {
 
   handleClick = (id) => {
     Taro.navigateTo({
-      url: `/pages/item/item?itemId=${id}`
+      url: `/pages/detail/index?id=${id}`
     })
   }
 
   render () {
-    // const { list } = this.props
+    const { data } = this.props;
     return (
       <View className='recommend'>
         <View className='recommend-title'>为你推荐</View>
         <View className='recommend-list'>
-          <View className='item'>
-            <Image
-              className='item-img'
-              src="https://yanxuan-item.nosdn.127.net/f848602138275d9745bc1c129004f9da.png"
-            />
-            <View>
-              <Text>日本制造 AKOYA海水珍珠红宝石项链 </Text> <Text className='price'>¥55</Text>
+          {
+            data && data.map((item, i) => {
+              return <View className='item' key={`recomm${i}`} onClick={this.handleClick.bind(this, item.id)}>
+              <Image
+                className='item-img'
+                src="https://yanxuan-item.nosdn.127.net/f848602138275d9745bc1c129004f9da.png"
+              />
+              <View>
+                <View className="item-name">{item.name}  </View>
+                <View className="item-desc">{item.description} <Text className='item-price'>  ¥{item.price}</Text></View>
+                {/* <RichText nodes={item.detail} /> */}
+              </View>
             </View>
-          </View>
-          <View className='item'>
-            <Image
-              className='item-img'
-              src="https://yanxuan-item.nosdn.127.net/f848602138275d9745bc1c129004f9da.png"
-            />
-            <View>
-              <Text>日本制造 AKOYA海水珍珠红宝石项链 </Text> <Text className='price'>¥55</Text>
-            </View>
-          </View>
-          <View className='item'>
-            <Image
-              className='item-img'
-              src="https://yanxuan-item.nosdn.127.net/f848602138275d9745bc1c129004f9da.png"
-            />
-            <View>
-              <Text>日本制造 AKOYA海水珍珠红宝石项链 </Text> <Text className='price'>¥55</Text>
-            </View>
-          </View>
-          <View className='item'>
-            <Image
-              className='item-img'
-              src="https://yanxuan-item.nosdn.127.net/f848602138275d9745bc1c129004f9da.png"
-            />
-            <View>
-              <Text>日本制造 AKOYA海水珍珠红宝石项链 </Text> <Text className='price'>¥55</Text>
-            </View>
-          </View>
+            })
+          }
+          <View className="no-more">没有更多宝贝了～</View>
         </View>
       </View>
     )

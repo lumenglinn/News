@@ -5,8 +5,8 @@ export default {
   namespace: 'index',
 
   state: {
-    collapsed: false,
-    userInfo: {}
+    list: {},
+    records: []
   },
 
   // subscriptions: {
@@ -14,25 +14,35 @@ export default {
   //       console.log(history, 222)
   //       dispatch({type: 'getList'});
   //   //   history.listen((location) => {
-        
+
   //   //   });
   //   }
   // },
 
   effects: {
-    *getList({payload}, {call, put}) {
+    *getList({ payload }, { call, put, select}) {
       const res = yield call(getList, payload);
-      if (res.success === true) {
+      const {records} = yield select((state)=> state.index); 
+      if (res.data.success === true) {
         yield put({
-            type: 'updateData',
-            payload: res.result
-          });
+          type: 'updateData',
+          payload: {
+            list: res.data.result,
+            records: records.concat(res.data.result.records)
+          }
+        });
       }
     }
   },
 
   reducers: {
-    updateData(state, {payload}) {
+    // updateList(state, { payload }) {
+    //   return {
+    //     ...state,
+    //     ...payload
+    //   };
+    // },
+    updateData(state, { payload }) {
       return {
         ...state,
         ...payload

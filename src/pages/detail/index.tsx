@@ -18,8 +18,14 @@ export default class Detail extends Component {
   componentWillMount() { }
 
   componentDidMount() { 
+    const { id } = this.$router.params;
     const { dispatch } = this.props;
-    dispatch({type: 'detail/getProductDetail'});
+    dispatch({
+      type: 'detail/getProductDetail',
+      payload: {
+        id
+      }
+    });
   }
 
   componentWillUnmount() { }
@@ -29,11 +35,14 @@ export default class Detail extends Component {
   componentDidHide() { }
 
   render() {
+    const { proDetail } = this.props;
+    const { bannerUrl, detail } = proDetail;
+    // console.log(this.props, 888)
     return (
       <View className='detail-page'>
-        <Banner />
-        <ProductInfo />
-        <Introduce />
+        <Banner data={bannerUrl}/>
+        <ProductInfo data={proDetail}/>
+        <Introduce data={detail}/>
         <Footer />
       </View>
     )
