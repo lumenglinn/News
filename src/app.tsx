@@ -6,7 +6,6 @@ import { Provider } from "@tarojs/redux";
 import './app.scss'
 import './assets/taro-ui.css'
 import models from './models'
-// import 'taro-ui/dist/style/index.scss'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -32,11 +31,12 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      'pages/mine/index',
+      'pages/cateList/index',
       'pages/index/index',
       'pages/detail/index',
-      'pages/classify/index',
       'pages/cart/index',
-      'pages/mine/index'
+      
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -56,7 +56,7 @@ class App extends Component {
         selectedIconPath: './assets/tab-bar/home-active.png',
         text: '首页'
       }, {
-        pagePath: 'pages/classify/index',
+        pagePath: 'pages/cateList/index',
         iconPath: './assets/tab-bar/cate.png',
         selectedIconPath: './assets/tab-bar/cate-active.png',
         text: '分类'

@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, Button } from '@tarojs/components'
+import { View, Image } from '@tarojs/components'
 // import { ButtonItem } from '@components'
 // import jump from '@utils/jump'
 import homeIcon from '../../assets/detail/home.png'
