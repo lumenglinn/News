@@ -1,9 +1,12 @@
-import Taro from '@tarojs/taro'
-
+/*
+ * @Descripttion: 
+ * @Date: 2019-08-11 15:41:31
+ */
+import request from '../utils/request'
 
 export async function getProductDetail(param) {
-  return Taro.request({
-      url: `https://api.51maimaimai.xyz/api/item/queryById?id=${param.id}`
+  return request({
+      url: `${apiPrefix}/api/item/get?id=${param.id}`
   });
 }
 

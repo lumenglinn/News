@@ -1,5 +1,4 @@
-// import {routerRedux} from 'dva/router';
-import { getList } from '../services/index';
+import { getHomeSetting, getList } from '../services/index';
 
 export default {
   namespace: 'index',
@@ -9,17 +8,25 @@ export default {
     records: []
   },
 
-  // subscriptions: {
-  //   setup({dispatch, history}) {
-  //       console.log(history, 222)
-  //       dispatch({type: 'getList'});
-  //   //   history.listen((location) => {
-
-  //   //   });
-  //   }
-  // },
+  subscriptions: {
+    setup({dispatch, history}) {
+      console.log(history, 222)
+      dispatch({type: 'getHomeSetting'});
+    }
+  },
 
   effects: {
+    *getHomeSetting({ payload }, { call, put}) {
+      const res = yield call(getHomeSetting, payload);
+      if (res.data.success === true) {
+        yield put({
+          type: 'updateData',
+          payload: {
+            ...res.data.result
+          }
+        });
+      }
+    },
     *getList({ payload }, { call, put, select}) {
       const res = yield call(getList, payload);
       const {records} = yield select((state)=> state.index); 
@@ -36,12 +43,6 @@ export default {
   },
 
   reducers: {
-    // updateList(state, { payload }) {
-    //   return {
-    //     ...state,
-    //     ...payload
-    //   };
-    // },
     updateData(state, { payload }) {
       return {
         ...state,

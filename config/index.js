@@ -25,6 +25,7 @@ const config = {
     }
   },
   defineConstants: {
+    apiPrefix: 'https://api.51maimaimai.xyz'
   },
   copy: {
     patterns: [

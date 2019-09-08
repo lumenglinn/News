@@ -1,34 +1,97 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
+import { AtButton, AtIcon, AtInputNumber, AtButton } from 'taro-ui'
 import './index.scss'
 
-export default class Index extends Component {
+export default class Cart extends Component {
 
-  /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
+  state = {
+    value: 1
+  }
   config: Config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '购物车'
   }
 
-  componentWillMount () { }
+  componentWillMount() { }
 
-  componentDidMount () { }
+  componentDidMount() { }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () { }
+  componentDidShow() { }
 
-  componentDidHide () { }
+  componentDidHide() { }
 
-  render () {
+  handleInputChange() {
+
+  }
+
+  render() {
     return (
-      <View className='index'>
-        <Text>Hello world!</Text>
+      <View className='cart-page'>
+        {/* 无商品 */}
+        {/* <View className="cart-null">
+          <Image
+            className='default-img'
+            src="http://yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/noCart-d6193bd6e4.png"
+          />
+          <View className="tips">购物车空空如也，去逛逛吧～</View>
+          <AtButton type='primary' className="btn-shopping">去购物</AtButton>
+        </View> */}
+
+        <View className="goods-list">
+          <View className="goods-item">
+            <AtIcon value="check-circle" className="check" size='24' color='#b4282d'></AtIcon>
+            <Image
+              className='goods-img'
+              src="https://yanxuan-item.nosdn.127.net/2d6f95aa82362622a73cd8b234e4747a.png"
+            />
+            <View className="goods-info">
+              <View className="goods-name">茗月 月饼礼盒 50克*12枚</View>
+              <View className="goods-desc">2019年限定款2019年限定款2019年限定款2019年限定款2019年限定款2019年限定款2019年限定款2019年限定款2019年限定款2019年限定款</View>
+              <View className="goods-price">¥89</View>
+              <AtInputNumber
+                min={0}
+                max={10}
+                step={1}
+                type="number"
+                className="input-number"
+                value={this.state.value}
+                onChange={this.handleInputChange.bind(this)}
+              />
+            </View>
+          </View>
+          <View className="goods-item">
+            <AtIcon value="check-circle" className="check" size='24' color='#b4282d'></AtIcon>
+            <Image
+              className='goods-img'
+              src="https://yanxuan-item.nosdn.127.net/2d6f95aa82362622a73cd8b234e4747a.png"
+            />
+            <View className="goods-info">
+              <View className="goods-name">茗月 月饼礼盒 50克*12枚</View>
+              <View className="goods-desc">2019年限定款2019年限定款2019年限定款2019年限定款2019年限定款</View>
+              <View className="goods-price">¥89</View>
+              <AtInputNumber
+                min={0}
+                max={10}
+                step={1}
+                className="input-number"
+                value={this.state.value}
+                onChange={this.handleInputChange.bind(this)}
+              />
+            </View>
+          </View>
+        </View>
+
+        <View className="total-wrap">
+          <AtIcon value="check-circle" className="check" size='24' color='#b4282d'></AtIcon>
+          <View className="total-number">已选(2)</View>
+          <View className="total-price">
+            <View className="price">合计：¥89</View>
+            <View>已优惠 ¥89</View>
+          </View>
+          <AtButton type='primary'>下单</AtButton>
+        </View>
       </View>
     )
   }

@@ -1,20 +1,26 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
+import { View, Text, Image, ScrollView } from '@tarojs/components'
 import { AtTabs, AtTabsPane, AtDivider, AtIcon } from 'taro-ui'
-import '../../assets/taro-ui.css'
 import './index.scss'
 
+@connect(({ cateList }) => ({
+  ...cateList,
+}))
 export default class CateList extends Component {
 
   state = {
-    current: 0
+    current: 0,
+    pageNoObj: {}
   }
-  
+
   config: Config = {
     navigationBarTitleText: '分类'
   }
 
-  componentWillMount() { }
+  componentWillMount() {
+    this.getCateTypes();
+  }
 
   componentDidMount() { }
 
@@ -23,14 +29,64 @@ export default class CateList extends Component {
   componentDidShow() { }
 
   componentDidHide() { }
-  
+
+  getCateTypes() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'cateList/getCateList',
+      payload: {}
+    });
+  }
+
   handleClick(index) {
+    const self = this;
     this.setState({
       current: index
+    }, () => {
+      self.getProductList(index);
     })
   }
 
+  getProductList() {
+
+    const { cateTypes, records, dispatch } = this.props;
+    const { pageNoObj, current } = this.state;
+    const categoryId = cateTypes[current].id;
+    const pageNo = pageNoObj[categoryId] || 1;
+    if (!records[categoryId]) {
+      // 请求第一页接口
+      dispatch({
+        type: 'cateList/getProductList',
+        payload: {
+          categoryId,
+          pageNo: 1
+        }
+      });
+    } else if (records[categoryId].length < records[`${categoryId}_total`]) {
+      // 翻页
+      dispatch({
+        type: 'cateList/getProductList',
+        payload: {
+          categoryId,
+          pageNo: pageNo + 1
+        }
+      });
+      this.setState({
+        pageNoObj: {
+          ...pageNoObj,
+          [categoryId]: pageNo + 1
+        }
+      })
+    }
+  }
+
   render() {
+    const { cateTypes = [], records } = this.props;
+    let tabList = [];
+    cateTypes.forEach(ele => {
+      tabList.push({ title: ele.name })
+    });
+
     return (
       <View className='cateList'>
         <AtTabs
@@ -38,158 +94,45 @@ export default class CateList extends Component {
           scroll
           height='100%'
           tabDirection='vertical'
-          tabList={[
-            { title: '优鲜菜场' },
-            { title: '时令水果' },
-            { title: '海鲜水产' },
-            { title: '休闲零食' },
-            { title: '酒水饮料' },
-            { title: '烘培糕点' },
-          ]}
+          tabList={tabList}
           onClick={this.handleClick.bind(this)}>
-          <AtTabsPane tabDirection='vertical' current={this.state.current} index={0}>
-            <View style='font-size:18px;text-align:center;height:100%;'>
-              <View className="product-list">
-                <View className="pro-item">
-                  <Image
-                    className='item-img'
-                    src="https://img14.360buyimg.com/focus/s140x140_jfs/t19432/178/2607825443/22589/446a22a2/5b023705N12de0824.jpg"
-                  />
-                  <View className="item-info">
-                    <View className="item-title">泰国金枕榴莲泰国金枕榴莲泰国金枕榴莲</View>
-                    <View className="item-desc">泰国直采 正宗金枕头品种泰国直采 正宗金枕头品种正宗金枕头品种正宗金枕头品种</View>
-                    <Text className="item-price">¥89</Text>
-                    <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
-                  </View>
+          {
+            !!cateTypes && cateTypes.map((cateItem, i) => {
+              return <AtTabsPane tabDirection='vertical' current={this.state.current} index={i} key={`cate_${i}`}>
+                <View style='font-size:18px;text-align:center;height:100%;'>
+                  <ScrollView
+                    scrollY
+                    scrollWithAnimation
+                    lowerThreshold={50}
+                    style={`height: 667px;`}
+                    onScrollToLower={this.getProductList}
+                  >
+                    <View className="product-list">
+                      {
+                        !!records[cateItem.id] && records[cateItem.id].map((item, index) => {
+                          return <View className="pro-item" key={`cate_pro_${index}`}>
+                            <Image
+                              className='item-img'
+                              src={item.mainUrl}
+                            />
+                            <View className="item-info">
+                              <View className="item-title">{item.name}</View>
+                              <View className="item-desc">{item.description}</View>
+                              <View className="item-price">
+                                <Text>¥{item.price}</Text><Text className="market-price">¥{item.marketPrice}</Text>
+                              </View>
+                              <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
+                            </View>
+                          </View>
+                        })
+                      }
+                    </View>
+                    <AtDivider content='已经到底啦，看看其他宝贝吧～' />
+                  </ScrollView>
                 </View>
-                <View className="pro-item">
-                  <Image
-                    className='item-img'
-                    src="https://img14.360buyimg.com/focus/s140x140_jfs/t19432/178/2607825443/22589/446a22a2/5b023705N12de0824.jpg"
-                  />
-                  <View className="item-info">
-                    <View className="item-title">泰国金枕榴莲泰国金枕榴莲泰国金枕榴莲</View>
-                    <View className="item-desc">泰国直采 正宗金枕头品种泰国直采 正宗金枕头品种正宗金枕头品种正宗金枕头品种</View>
-                    <Text className="item-price">¥89</Text>
-                    <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
-                  </View>
-                </View>
-                <View className="pro-item">
-                  <Image
-                    className='item-img'
-                    src="https://img14.360buyimg.com/focus/s140x140_jfs/t19432/178/2607825443/22589/446a22a2/5b023705N12de0824.jpg"
-                  />
-                  <View className="item-info">
-                    <View className="item-title">泰国金枕榴莲泰国金枕榴莲泰国金枕榴莲</View>
-                    <View className="item-desc">泰国直采 正宗金枕头品种泰国直采 正宗金枕头品种正宗金枕头品种正宗金枕头品种</View>
-                    <Text className="item-price">¥89</Text>
-                    <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
-                  </View>
-                </View>
-                <View className="pro-item">
-                  <Image
-                    className='item-img'
-                    src="https://img14.360buyimg.com/focus/s140x140_jfs/t19432/178/2607825443/22589/446a22a2/5b023705N12de0824.jpg"
-                  />
-                  <View className="item-info">
-                    <View className="item-title">泰国金枕榴莲泰国金枕榴莲泰国金枕榴莲</View>
-                    <View className="item-desc">泰国直采 正宗金枕头品种泰国直采 正宗金枕头品种正宗金枕头品种正宗金枕头品种</View>
-                    <Text className="item-price">¥89</Text>
-                    <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
-                  </View>
-                </View>
-                <View className="pro-item">
-                  <Image
-                    className='item-img'
-                    src="https://img14.360buyimg.com/focus/s140x140_jfs/t19432/178/2607825443/22589/446a22a2/5b023705N12de0824.jpg"
-                  />
-                  <View className="item-info">
-                    <View className="item-title">泰国金枕榴莲泰国金枕榴莲泰国金枕榴莲</View>
-                    <View className="item-desc">泰国直采 正宗金枕头品种泰国直采 正宗金枕头品种正宗金枕头品种正宗金枕头品种</View>
-                    <Text className="item-price">¥89</Text>
-                    <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
-                  </View>
-                </View>
-                <View className="pro-item">
-                  <Image
-                    className='item-img'
-                    src="https://img14.360buyimg.com/focus/s140x140_jfs/t19432/178/2607825443/22589/446a22a2/5b023705N12de0824.jpg"
-                  />
-                  <View className="item-info">
-                    <View className="item-title">泰国金枕榴莲泰国金枕榴莲泰国金枕榴莲</View>
-                    <View className="item-desc">泰国直采 正宗金枕头品种泰国直采 正宗金枕头品种正宗金枕头品种正宗金枕头品种</View>
-                    <Text className="item-price">¥89</Text>
-                    <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
-                  </View>
-                </View>
-                <View className="pro-item">
-                  <Image
-                    className='item-img'
-                    src="https://img14.360buyimg.com/focus/s140x140_jfs/t19432/178/2607825443/22589/446a22a2/5b023705N12de0824.jpg"
-                  />
-                  <View className="item-info">
-                    <View className="item-title">泰国金枕榴莲泰国金枕榴莲泰国金枕榴莲</View>
-                    <View className="item-desc">泰国直采 正宗金枕头品种泰国直采 正宗金枕头品种正宗金枕头品种正宗金枕头品种</View>
-                    <Text className="item-price">¥89</Text>
-                    <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
-                  </View>
-                </View>
-                <View className="pro-item">
-                  <Image
-                    className='item-img'
-                    src="https://img14.360buyimg.com/focus/s140x140_jfs/t19432/178/2607825443/22589/446a22a2/5b023705N12de0824.jpg"
-                  />
-                  <View className="item-info">
-                    <View className="item-title">泰国金枕榴莲泰国金枕榴莲泰国金枕榴莲</View>
-                    <View className="item-desc">泰国直采 正宗金枕头品种泰国直采 正宗金枕头品种正宗金枕头品种正宗金枕头品种</View>
-                    <Text className="item-price">¥89</Text>
-                    <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
-                  </View>
-                </View>
-                <View className="pro-item">
-                  <Image
-                    className='item-img'
-                    src="https://img14.360buyimg.com/focus/s140x140_jfs/t19432/178/2607825443/22589/446a22a2/5b023705N12de0824.jpg"
-                  />
-                  <View className="item-info">
-                    <View className="item-title">泰国金枕榴莲泰国金枕榴莲泰国金枕榴莲</View>
-                    <View className="item-desc">泰国直采 正宗金枕头品种泰国直采 正宗金枕头品种正宗金枕头品种正宗金枕头品种</View>
-                    <Text className="item-price">¥89</Text>
-                    <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
-                  </View>
-                </View>
-                <View className="pro-item">
-                  <Image
-                    className='item-img'
-                    src="https://img14.360buyimg.com/focus/s140x140_jfs/t19432/178/2607825443/22589/446a22a2/5b023705N12de0824.jpg"
-                  />
-                  <View className="item-info">
-                    <View className="item-title">泰国金枕榴莲泰国金枕榴莲泰国金枕榴莲</View>
-                    <View className="item-desc">泰国直采 正宗金枕头品种泰国直采 正宗金枕头品种正宗金枕头品种正宗金枕头品种</View>
-                    <Text className="item-price">¥89</Text>
-                    <AtIcon value='shopping-cart' className="add-cart" size='18' color='#902024'></AtIcon>
-                  </View>
-                </View>
-
-              </View>
-              <AtDivider content='已经到底啦，看看其他宝贝吧～' />
-            </View>
-          </AtTabsPane>
-          <AtTabsPane tabDirection='vertical' current={this.state.current} index={1}>
-            <View style='font-size:18px;text-align:center;height:100%;'>标签页二的内容</View>
-          </AtTabsPane>
-          <AtTabsPane tabDirection='vertical' current={this.state.current} index={2}>
-            <View style='font-size:18px;text-align:center;height:100%;'>标签页三的内容</View>
-          </AtTabsPane>
-          <AtTabsPane tabDirection='vertical' current={this.state.current} index={3}>
-            <View style='font-size:18px;text-align:center;height:100%;'>标签页四的内容</View>
-          </AtTabsPane>
-          <AtTabsPane tabDirection='vertical' current={this.state.current} index={4}>
-            <View style='font-size:18px;text-align:center;height:100%;'>标签页五的内容</View>
-          </AtTabsPane>
-          <AtTabsPane tabDirection='vertical' current={this.state.current} index={5}>
-            <View style='font-size:18px;text-align:center;height:100%;'>标签页六的内容</View>
-          </AtTabsPane>
+              </AtTabsPane>
+            })
+          }
         </AtTabs>
       </View>
     )

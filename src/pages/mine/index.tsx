@@ -3,7 +3,7 @@ import { View } from '@tarojs/components'
 import { AtIcon, AtGrid } from 'taro-ui'
 import './index.scss'
 
-export default class Index extends Component {
+export default class Mine extends Component {
 
   /**
    * 指定config的类型声明为: Taro.Config
@@ -13,7 +13,7 @@ export default class Index extends Component {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
   config: Config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '我的'
   }
 
   componentWillMount() { }

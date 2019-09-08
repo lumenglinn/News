@@ -31,12 +31,11 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      'pages/mine/index',
       'pages/cateList/index',
       'pages/index/index',
-      'pages/detail/index',
       'pages/cart/index',
-      
+      'pages/mine/index',
+      'pages/detail/index',
     ],
     window: {
       backgroundTextStyle: 'light',

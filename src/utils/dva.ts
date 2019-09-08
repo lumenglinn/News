@@ -10,7 +10,7 @@ let registered
 
 function createApp(opt) {
     // redux 的日志
-    opt.onAction = [createLogger()]
+    // opt.onAction = [createLogger()]
     app = create(opt)
     app.use(createLoading({}))
 

@@ -72,8 +72,7 @@ export default class Index extends Component {
 
   render() {
     const { searchValue } = this.state;
-    const { records } = this.props;
-    // const { records } = list;
+    const { records, bannerList, navList, adList=[] } = this.props;
     return (
       <View className='index-page'>
 
@@ -95,17 +94,18 @@ export default class Index extends Component {
             value={searchValue}
             onChange={this.onChange.bind(this)}
           />
-          <Banner />
-          <NavList />
-          <View onClick={this.toPage.bind(this, '/pages/detail/index')}>
+          <Banner bannerList={bannerList}/>
+          <NavList navList={navList}/>
+          {
+            !!adList[0] && <View onClick={this.toPage.bind(this, `/pages/detail/index?id=${adList[0].id}`)}>
             <Image
               className='adv-img'
-              src="https://yanxuan.nosdn.127.net/62d709816f0b516da52254ab08deaadf.gif"
+              src={adList[0].picUrl}
             />
           </View>
+          }
           <Recommend data={records} />
         </ScrollView>
-
       </View>
     )
   }

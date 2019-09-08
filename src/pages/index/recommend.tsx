@@ -25,7 +25,7 @@ export default class Recommend extends Component {
               return <View className='item' key={`recomm${i}`} onClick={this.handleClick.bind(this, item.id)}>
               <Image
                 className='item-img'
-                src="https://yanxuan-item.nosdn.127.net/f848602138275d9745bc1c129004f9da.png"
+                src={item.mainUrl}
               />
               <View>
                 <View className="item-name">{item.name}  </View>

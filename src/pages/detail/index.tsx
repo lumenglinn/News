@@ -37,7 +37,6 @@ export default class Detail extends Component {
   render() {
     const { proDetail } = this.props;
     const { bannerUrl, detail } = proDetail;
-    // console.log(this.props, 888)
     return (
       <View className='detail-page'>
         <Banner data={bannerUrl}/>

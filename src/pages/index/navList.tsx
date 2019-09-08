@@ -2,82 +2,20 @@ import { View, Text, Image } from '@tarojs/components'
 import './index.scss'
 
 export default function NavList() {
-  // function onChange() {
-
-  // }
-
+  const {navList=[]} = this.props;
   return (
     <View className='nav-list'>
-      <View className='nav-item'>
-        <Image
-          className='nav-img'
-          src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"
-        />
-        <View>居家生活</View>
-      </View>
-      <View className='nav-item'>
-        <Image
-          className='nav-img'
-          src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"
-        />
-        <View>居家生活</View>
-      </View>
-      <View className='nav-item'>
-        <Image
-          className='nav-img'
-          src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"
-        />
-        <View>居家生活</View>
-      </View>
-      <View className='nav-item'>
-        <Image
-          className='nav-img'
-          src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"
-        />
-        <View>居家生活</View>
-      </View>
-      <View className='nav-item'>
-        <Image
-          className='nav-img'
-          src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"
-        />
-        <View>居家生活</View>
-      </View>
-      <View className='nav-item'>
-        <Image
-          className='nav-img'
-          src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"
-        />
-        <View>居家生活</View>
-      </View>
-      <View className='nav-item'>
-        <Image
-          className='nav-img'
-          src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"
-        />
-        <View>居家生活</View>
-      </View>
-      <View className='nav-item'>
-        <Image
-          className='nav-img'
-          src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"
-        />
-        <View>居家生活</View>
-      </View>
-      <View className='nav-item'>
-        <Image
-          className='nav-img'
-          src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"
-        />
-        <View>居家生活</View>
-      </View>
-      <View className='nav-item'>
-        <Image
-          className='nav-img'
-          src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png"
-        />
-        <View>居家生活</View>
-      </View>
+      {
+        navList.map((item, i) => {
+          return <View className='nav-item' key={`nav_${i}`}>
+          <Image
+            className='nav-img'
+            src={item.picUrl}
+          />
+          <View>{item.name}</View>
+        </View>
+        })
+      } 
     </View>
   );
 }
