@@ -6,6 +6,7 @@ import { Provider } from "@tarojs/redux";
 import './app.scss'
 import './assets/taro-ui.css'
 import models from './models'
+import { getAccessToken } from './services/global'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -31,9 +32,11 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      'pages/orderConfirm/index',
+      'pages/orderList/index',
+      'pages/cart/index',
       'pages/cateList/index',
       'pages/index/index',
-      'pages/cart/index',
       'pages/mine/index',
       'pages/detail/index',
     ],
@@ -75,7 +78,18 @@ class App extends Component {
 
   componentDidMount () {}
 
-  componentDidShow () {}
+  componentDidShow () {
+    // let { path } = this.$router.params;
+    wx.login({
+      success(res) {
+        if (res.code) {
+          getAccessToken(res.code);
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
+  }
 
   componentDidHide () {}
 
