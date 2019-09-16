@@ -37,6 +37,13 @@ export default class Cart extends Component {
 
   }
 
+  
+  handleToOrder(id) {
+    Taro.navigateTo({
+      url: `/pages/orderConfirm/index`
+    })
+  }
+
   render() {
     const { cartList: { records } } = this.props;
     const hasRecord = records.length > 0;
@@ -91,7 +98,7 @@ export default class Cart extends Component {
             <View className="price">合计：¥89</View>
             <View>已优惠 ¥89</View>
           </View>
-          <AtButton type='primary'>下单</AtButton>
+          <AtButton type='primary' onClick={this.handleToOrder}>下单</AtButton>
         </View>
       </View>
     )

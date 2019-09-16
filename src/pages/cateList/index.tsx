@@ -116,55 +116,6 @@ export default class CateList extends Component {
     });
   }
 
-  getAddress() {
-    wx.getSetting({
-      success(res) {
-        console.log("vres.authSetting['scope.address']：", res.authSetting['scope.address'])
-        if (res.authSetting['scope.address']) {
-          console.log("111")
-          wx.chooseAddress({
-            success(res) {
-              console.log(res.userName)
-              console.log(res.postalCode)
-              console.log(res.provinceName)
-              console.log(res.cityName)
-              console.log(res.countyName)
-              console.log(res.detailInfo)
-              console.log(res.nationalCode)
-              console.log(res.telNumber)
-            }
-          })
-          // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-
-        } else {
-          if (res.authSetting['scope.address'] == false) {
-            console.log("222")
-            wx.openSetting({
-              success(res) {
-                console.log(res.authSetting)
-
-              }
-            })
-          } else {
-            console.log("eee")
-            wx.chooseAddress({
-              success(res) {
-                console.log(res.userName)
-                console.log(res.postalCode)
-                console.log(res.provinceName)
-                console.log(res.cityName)
-                console.log(res.countyName)
-                console.log(res.detailInfo)
-                console.log(res.nationalCode)
-                console.log(res.telNumber)
-              }
-            })
-          }
-        }
-      }
-    })
-  }
-
   handleToDetail(id) {
     Taro.navigateTo({
       url: `/pages/detail/index?id=${id}`

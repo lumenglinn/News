@@ -32,11 +32,13 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      
+      'pages/index/index',
       'pages/orderConfirm/index',
       'pages/orderList/index',
       'pages/cart/index',
       'pages/cateList/index',
-      'pages/index/index',
+      
       'pages/mine/index',
       'pages/detail/index',
     ],

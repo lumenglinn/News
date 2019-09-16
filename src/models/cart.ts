@@ -1,7 +1,7 @@
 /*
  * @Descripttion: 购物车 model
  * @Date: 2019-09-13 10:34:56
- * @LastEditTime: 2019-09-13 12:01:25
+ * @LastEditTime: 2019-09-16 23:43:42
  */
 
 import { getCartList, addCart } from '../services/cart';
@@ -25,7 +25,7 @@ export default {
      * @function: 获取购物车列表
      * @param {type} 
      * @return: 
-     */    
+     */
     *getCartList({payload}, {call, put}) {
       const res = yield call(getCartList, payload);
       if (res.data.success === true) {
@@ -52,11 +52,12 @@ export default {
         });
       }
       return res
-    },
+    }
   },
 
   reducers: {
     updateData(state, {payload}) {
+      console.log(payload)
       return {
         ...state,
         ...payload
