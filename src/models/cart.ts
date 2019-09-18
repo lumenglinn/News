@@ -1,7 +1,7 @@
 /*
  * @Descripttion: 购物车 model
  * @Date: 2019-09-13 10:34:56
- * @LastEditTime: 2019-09-16 23:43:42
+ * @LastEditTime: 2019-09-17 00:00:18
  */
 
 import { getCartList, addCart } from '../services/cart';
@@ -57,7 +57,6 @@ export default {
 
   reducers: {
     updateData(state, {payload}) {
-      console.log(payload)
       return {
         ...state,
         ...payload

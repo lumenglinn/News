@@ -26,6 +26,12 @@ export default class Mine extends Component {
   componentDidShow() { }
 
   componentDidHide() { }
+  
+  toMyOrder = () => {
+    Taro.navigateTo({
+      url: `/pages/orderList/index`
+    })
+  }
 
   render() {
     return (
@@ -41,15 +47,15 @@ export default class Mine extends Component {
         <View className="myorder-wrap">
           <View className="mine-title">我的订单</View>
           <View className="myorder">
-            <View className="order-item">
+            <View className="order-item" onClick={this.toMyOrder}>
               <AtIcon value='money' size='24' color='#333'></AtIcon>
               <View>代付款</View>
             </View>
-            <View className="order-item">
+            <View className="order-item" onClick={this.toMyOrder}>
               <AtIcon value='shopping-bag' size='24' color='#333'></AtIcon>
               <View>代付款</View>
             </View>
-            <View className="order-item">
+            <View className="order-item" onClick={this.toMyOrder}>
               <AtIcon value='shopping-bag-2' size='24' color='#333'></AtIcon>
               <View>代付款</View>
             </View>

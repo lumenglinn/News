@@ -21,23 +21,6 @@ export default class CateList extends Component {
 
   componentWillMount() {
     this.getCateTypes();
-    // 必须是在用户已经授权的情况下调用
-    // wx.getUserInfo({
-    //   success: function (res) {
-    //     console.log(res)
-    //     var userInfo = res.userInfo
-    //     var nickName = userInfo.nickName
-    //     var avatarUrl = userInfo.avatarUrl
-    //     var gender = userInfo.gender //性别 0：未知、1：男、2：女
-    //     var province = userInfo.province
-    //     var city = userInfo.city
-    //     var country = userInfo.country
-    //   }
-    // })
-
-    // Taro.chooseAddress().then((res) => {
-    //   console.log(res, 'weixin address')
-    // })
   }
 
   componentDidMount() { }
@@ -172,7 +155,6 @@ export default class CateList extends Component {
                       }
                     </View>
                     <AtDivider content='已经到底啦，看看其他宝贝吧～' />
-                    <View onClick={this.getAddress}>获取地址</View>
                   </ScrollView>
                 </View>
               </AtTabsPane>

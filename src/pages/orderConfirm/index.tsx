@@ -94,6 +94,13 @@ export default class OrderConfirm extends Component {
         // "userAddressId": "string", // 用户地址id
         zipcode: postalCode           // 邮编
       }
+    }).then((res) => {
+      if (res.data.success) {
+        Taro.showToast({
+          title: '下单成功',
+          icon: 'success'
+      })
+      }
     });
   }
 

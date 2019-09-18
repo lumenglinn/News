@@ -18,11 +18,7 @@ export default class Cart extends Component {
   }
 
   componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'cart/getCartList',
-      payload: {}
-    });
+    this.getCartList();
   }
 
   componentDidMount() { }
@@ -37,6 +33,13 @@ export default class Cart extends Component {
 
   }
 
+  getCartList = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'cart/getCartList',
+      payload: {}
+    });
+  }
   
   handleToOrder(id) {
     Taro.navigateTo({
