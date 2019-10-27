@@ -117,8 +117,6 @@ export default class CateList extends Component {
         <AtTabs
           current={this.state.current}
           scroll
-          height='100%'
-          tabDirection='vertical'
           tabList={tabList}
           onClick={this.handleTabClick.bind(this)}>
           {
@@ -135,26 +133,51 @@ export default class CateList extends Component {
                     <View className="product-list">
                       {
                         !!records[cateItem.id] && records[cateItem.id].map((item, index) => {
-                          return <View className="pro-wrap" key={`cate_pro_${index}`}>
-                            <View className="pro-item" onClick={this.handleToDetail.bind(this, item.id)}>
+                          return <View><View className="pro-wrap" key={`cate_pro_${index}`}>
+                            <View className="pro-item dis-flex" onClick={this.handleToDetail.bind(this, item.id)}>
+                              <View className="item-info">
+                                <View className="item-title">{item.name}{item.name}{item.name}{item.name}</View>
+                                {/* <View className="item-desc">{item.description}</View> */}
+                              </View>
                               <Image
                                 className='item-img'
                                 src={item.mainUrl}
                               />
-                              <View className="item-info">
-                                <View className="item-title">{item.name}</View>
-                                <View className="item-desc">{item.description}</View>
-                                <View className="item-price">
-                                  <Text>¥{item.price}</Text><Text className="market-price">¥{item.marketPrice}</Text>
+                            </View>
+                          </View>
+                            <View className="pro-wrap" key={`cate_pro_${index}`}>
+                              <View className="pro-item" onClick={this.handleToDetail.bind(this, item.id)}>
+                                <View className="item-info">
+                                  <View className="item-title">{item.name}{item.name}{item.name}{item.name}</View>
+                                  {/* <View className="item-desc">{item.description}</View> */}
+                                </View>
+                              </View>
+                              <View className="pro-item" onClick={this.handleToDetail.bind(this, item.id)}>
+                                <View className="item-info">
+                                  <View className="item-title">{item.name}{item.name}{item.name}{item.name}</View>
+                                  {/* <View className="item-desc">{item.description}</View> */}
+                                </View>
+                                <View className="imgs dis-flex">
+                                  <Image
+                                    className='item-img'
+                                    src='https://p3.pstatp.com/list/pgc-image/ac34c5fbd3a849edb48131152ebe5591'
+                                  />
+                                  <Image
+                                    className='item-img'
+                                    src='https://p3.pstatp.com/list/pgc-image/ac34c5fbd3a849edb48131152ebe5591'
+                                  />
+                                  <Image
+                                    className='item-img'
+                                    src='https://p3.pstatp.com/list/pgc-image/ac34c5fbd3a849edb48131152ebe5591'
+                                  />
                                 </View>
                               </View>
                             </View>
-                            <AtIcon value='shopping-cart' onClick={this.addCart.bind(this, item.skuId)} className="add-cart" size='18' color='#902024'></AtIcon>
                           </View>
                         })
                       }
                     </View>
-                    <AtDivider content='已经到底啦，看看其他宝贝吧～' />
+                    <AtDivider content='已经到底啦～' />
                   </ScrollView>
                 </View>
               </AtTabsPane>
@@ -165,3 +188,22 @@ export default class CateList extends Component {
     )
   }
 }
+
+
+
+// {
+//   !!records[cateItem.id] && records[cateItem.id].map((item, index) => {
+//     return <View className="pro-wrap" key={`cate_pro_${index}`}>
+//       <View className="pro-item" onClick={this.handleToDetail.bind(this, item.id)}>
+//         <View className="item-info">
+//           <View className="item-title">{item.name}{item.name}{item.name}{item.name}</View>
+//           {/* <View className="item-desc">{item.description}</View> */}
+//         </View>
+//         <Image
+//           className='item-img'
+//           src={item.mainUrl}
+//         />
+//       </View>
+//     </View>
+//   })
+// }

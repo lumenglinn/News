@@ -1,13 +1,16 @@
 {
-  "miniprogramRoot": "./dist",
-  "projectname": "Mall",
-  "description": "一个小程序商城",
-  "appid": "wxb001c57900589b60",
-  "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "postcss": false,
-    "minified": false
-  },
-  "compileType": "miniprogram"
+	"miniprogramRoot": "dist/",
+	"projectname": "News",
+	"description": "一个新闻资讯平台",
+	"appid": "wxb001c57900589b60",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false
+	},
+	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {}
 }

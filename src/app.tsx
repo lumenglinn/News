@@ -32,15 +32,11 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      'pages/orderDetail/index',
-      'pages/orderConfirm/index',
-      'pages/orderList/index',
-      'pages/index/index',
-      'pages/cart/index',
-      
-      'pages/cateList/index',
-      'pages/mine/index',
       'pages/detail/index',
+      'pages/index/index',
+      'pages/cateList/index',
+      // 'pages/mine/index',
+      
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -49,48 +45,48 @@ class App extends Component {
       navigationBarTextStyle: 'black',
       enablePullDownRefresh: true
     },
-    tabBar: {
-      color: '#666',
-      selectedColor: '#b4282d',
-      backgroundColor: '#fafafa',
-      borderStyle: 'black',
-      list: [{
-        pagePath: 'pages/index/index',
-        iconPath: './assets/tab-bar/home.png',
-        selectedIconPath: './assets/tab-bar/home-active.png',
-        text: '首页'
-      }, {
-        pagePath: 'pages/cateList/index',
-        iconPath: './assets/tab-bar/cate.png',
-        selectedIconPath: './assets/tab-bar/cate-active.png',
-        text: '分类'
-      }, {
-        pagePath: 'pages/cart/index',
-        iconPath: './assets/tab-bar/cart.png',
-        selectedIconPath: './assets/tab-bar/cart-active.png',
-        text: '购物车'
-      }, {
-        pagePath: 'pages/mine/index',
-        iconPath: './assets/tab-bar/user.png',
-        selectedIconPath: './assets/tab-bar/user-active.png',
-        text: '个人'
-      }]
-    }
+    // tabBar: {
+    //   color: '#666',
+    //   selectedColor: '#b4282d',
+    //   backgroundColor: '#fafafa',
+    //   borderStyle: 'black',
+    //   list: [{
+    //     pagePath: 'pages/index/index',
+    //     iconPath: './assets/tab-bar/home.png',
+    //     selectedIconPath: './assets/tab-bar/home-active.png',
+    //     text: '首页'
+    //   }, {
+    //     pagePath: 'pages/cateList/index',
+    //     iconPath: './assets/tab-bar/cate.png',
+    //     selectedIconPath: './assets/tab-bar/cate-active.png',
+    //     text: '分类'
+    //   }, {
+    //     pagePath: 'pages/cart/index',
+    //     iconPath: './assets/tab-bar/cart.png',
+    //     selectedIconPath: './assets/tab-bar/cart-active.png',
+    //     text: '购物车'
+    //   }, {
+    //     pagePath: 'pages/mine/index',
+    //     iconPath: './assets/tab-bar/user.png',
+    //     selectedIconPath: './assets/tab-bar/user-active.png',
+    //     text: '个人'
+    //   }]
+    // }
   }
 
   componentDidMount () {}
 
   componentDidShow () {
     // let { path } = this.$router.params;
-    wx.login({
-      success(res) {
-        if (res.code) {
-          getAccessToken(res.code);
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    })
+    // wx.login({
+    //   success(res) {
+    //     if (res.code) {
+    //       getAccessToken(res.code);
+    //     } else {
+    //       console.log('登录失败！' + res.errMsg)
+    //     }
+    //   }
+    // })
   }
 
   componentDidHide () {}

@@ -12,8 +12,7 @@ export async function getHomeSetting() {
 
 export async function getList(param) {
   return request({
-      url: `${apiPrefix}/api/item/list`,
+      url: `${apiPrefix}/api/article/list`,
       data: param || {}
   });
 }
-

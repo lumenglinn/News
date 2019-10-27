@@ -1,10 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
-import { View, Image, ScrollView } from '@tarojs/components'
-import { AtSearchBar } from 'taro-ui'
-import Banner from './banner'
-import NavList from './navList'
-import Recommend from './recommend'
+import { View, ScrollView } from '@tarojs/components'
+import ListItem from './listItem'
 import './index.scss'
 
 @connect(({ index }) => ({
@@ -40,12 +37,6 @@ export default class Index extends Component {
 
   componentDidHide() { }
 
-  onChange(value) {
-    this.setState({
-      searchValue: value
-    })
-  }
-
   getList() {
     const { dispatch, list, records } = this.props;
     let { pageNo } = this.state;
@@ -64,24 +55,11 @@ export default class Index extends Component {
     })
   }
 
-  toPage(url) {
-    Taro.redirectTo({
-      url
-    })
-  }
-
   render() {
-    const { searchValue } = this.state;
-    const { records, bannerList, navList, adList=[] } = this.props;
+    const { records } = this.props;
+    const hasRecord = records.length > 0;
     return (
       <View className='index-page'>
-
-        {/* <View className='at-row'>
-          <View className='at-col'>网易自营品牌</View>
-          <View className='at-col'>48小时快速退款</View>
-          <View className='at-col'>30天无忧退款</View>
-        </View> */}
-
         <ScrollView
           scrollY
           scrollWithAnimation
@@ -89,22 +67,18 @@ export default class Index extends Component {
           style={`height: 667px;`}
           onScrollToLower={this.getList}
         >
-          <AtSearchBar
-            className='home-banner'
-            value={searchValue}
-            onChange={this.onChange.bind(this)}
-          />
-          <Banner bannerList={bannerList}/>
-          <NavList navList={navList}/>
-          {
-            !!adList[0] && <View onClick={this.toPage.bind(this, `/pages/detail/index?id=${adList[0].id}`)}>
-            <Image
-              className='adv-img'
-              src={adList[0].picUrl}
-            />
+          <View className='recommend-list'>
+            {
+               hasRecord && records.map((item, i) => {
+                return <View className="item-wrap" key={`recomm${i}`}>
+                  <ListItem data={item}  />
+                </View>
+              })
+            }
+            {
+              !hasRecord && <View className="no-more">没有更多了～</View>
+            }
           </View>
-          }
-          <Recommend data={records} />
         </ScrollView>
       </View>
     )

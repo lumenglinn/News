@@ -6,7 +6,7 @@ import request from '../utils/request'
 
 export async function getProductDetail(param) {
   return request({
-      url: `${apiPrefix}/api/item/get?id=${param.id}`
+      url: `${apiPrefix}/api/articleDetail/queryById?id=${param.id}`
   });
 }
 

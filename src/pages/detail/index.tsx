@@ -1,10 +1,10 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
 import { View } from '@tarojs/components'
-import Banner from './banner'
-import ProductInfo from './productInfo'
+// import Banner from './banner'
+// import ProductInfo from './productInfo'
 import Introduce from './introduce'
-import Footer from './footer'
+// import Footer from './footer'
 import './index.scss'
 
 @connect(({ detail }) => ({
@@ -23,7 +23,7 @@ export default class Detail extends Component {
     dispatch({
       type: 'detail/getProductDetail',
       payload: {
-        id
+        id: '57d6ed17ea704a0884c090772af64cc7'
       }
     });
   }
@@ -36,13 +36,20 @@ export default class Detail extends Component {
 
   render() {
     const { proDetail } = this.props;
-    const { bannerUrl, detail } = proDetail;
+    let { bannerUrl, detail='' } = proDetail;
+
+    console.log(detail, 'detail')
+    detail = detail.replace(
+      /\<img/gi,
+      '<img style="display:block; width:98%; margin:0 auto" '
+    );
+ 
     return (
       <View className='detail-page'>
-        <Banner data={bannerUrl}/>
-        <ProductInfo data={proDetail}/>
+        {/* <Banner data={bannerUrl}/>
+        <ProductInfo data={proDetail}/> */}
         <Introduce data={detail}/>
-        <Footer />
+        {/* <Footer /> */}
       </View>
     )
   }

@@ -1,5 +1,10 @@
+/*
+ * @Descripttion: 
+ * @Date: 2019-07-21 16:15:37
+ * @LastEditTime: 2019-10-27 21:17:53
+ */
 const config = {
-  projectName: 'Mall',
+  projectName: 'News',
   date: '2019-7-21',
   designWidth: 750,
   deviceRatio: {
@@ -25,7 +30,8 @@ const config = {
     }
   },
   defineConstants: {
-    apiPrefix: 'https://api.51maimaimai.xyz'
+    apiPrefix: 'http://120.79.22.119:8091'
+    // apiPrefix: 'https://api.51maimaimai.xyz'
   },
   copy: {
     patterns: [
